@@ -11,10 +11,11 @@ const authenticate = async (req, res, next) => {
       return createError(401, "Unauthorized");
     }
 
-    const arrayToken = authorization.splite(" ");
+    const arrayToken = authorization.split(" ");
+
     const token = arrayToken[1];
 
-    if (authorization[0] !== "Bearer" || !token) {
+    if (arrayToken[0] !== "Bearer" || !token) {
       return createError(401, "Unauthorized");
     }
 
@@ -23,7 +24,7 @@ const authenticate = async (req, res, next) => {
     if (
       typeof payload !== "object" ||
       !payload?.id ||
-      typeof payload.id !== "string"
+      typeof payload.id !== "number"
     ) {
       return createError(400, "Payload not in correct format");
     }
